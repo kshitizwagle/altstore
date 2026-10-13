@@ -160,7 +160,17 @@
           "NSMicrophoneUsageDescription": "VDO.Ninja links you open can send audio from the microphone."
         }
       },
-      "versions": []
+      "versions": [
+        {
+          "version": "0.1.0",
+          "buildVersion": "1",
+          "date": "2026-10-13T16:49:13Z",
+          "localizedDescription": "Ninja Links v0.1.0",
+          "downloadURL": "https://github.com/kshitizwagle/ninja-links/releases/download/v0.1.0/NinjaLinks-unsigned.ipa",
+          "size": 323107,
+          "minOSVersion": "16.0"
+        }
+      ]
     }
   ],
   "news": []
