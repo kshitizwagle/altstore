@@ -1,0 +1,40 @@
+name: update source
+
+# Rebuilds source.json from the app repos' GitHub releases and commits it when it changed.
+# Runs hourly, on demand, when apps.json or the script changes, and when an app repo sends a
+# `release` repository_dispatch right after publishing (that needs a token in the app repo; optional).
+
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [release]
+  push:
+    branches: [main]
+    paths: ["apps.json", "scripts/**", ".github/workflows/update.yml"]
+
+concurrency:
+  group: update-source
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build source.json
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/build_source.py
+      - name: Commit if changed
+        run: |
+          git diff --quiet -- source.json && { echo "No change"; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add source.json
+          git commit -m "Update source.json"
+          git push

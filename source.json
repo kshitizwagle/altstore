@@ -1,0 +1,167 @@
+{
+  "name": "kshitizwagle",
+  "identifier": "np.com.kshitizwagle.altstore",
+  "subtitle": "Apps by kshitizwagle",
+  "description": "Free iPhone apps by kshitizwagle, built from their public GitHub repos.",
+  "iconURL": "https://github.com/kshitizwagle.png",
+  "website": "https://kshitizwagle.com.np",
+  "tintColor": "#F46B2E",
+  "apps": [
+    {
+      "name": "Tethercam",
+      "bundleIdentifier": "org.tethercam.app",
+      "developerName": "Tethercam contributors",
+      "subtitle": "Use your iPhone as a webcam on Windows over USB",
+      "localizedDescription": "Tethercam streams your iPhone camera to a Windows 11 PC over the USB cable, at up to 4K 60 fps, where it shows up as a normal webcam in Teams, Zoom, OBS, browsers and the Camera app. No account, no watermark, no Wi-Fi.\n\nYou also need the Windows app (MSI) from https://github.com/kshitizwagle/tethercam/releases and Apple Devices (Microsoft Store) on the PC.",
+      "iconURL": "https://raw.githubusercontent.com/kshitizwagle/altstore/main/icons/tethercam.png",
+      "tintColor": "#22A35E",
+      "category": "utilities",
+      "screenshots": [],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {
+          "NSCameraUsageDescription": "Tethercam streams your camera to your PC over the USB cable."
+        }
+      },
+      "versions": [
+        {
+          "version": "0.1.11",
+          "buildVersion": "13",
+          "date": "2026-10-13T14:59:05Z",
+          "localizedDescription": "Tethercam v0.1.11",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.11/Tethercam-unsigned.ipa",
+          "size": 235254,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.10",
+          "buildVersion": "12",
+          "date": "2026-10-13T06:51:56Z",
+          "localizedDescription": "Tethercam v0.1.10",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.10/Tethercam-unsigned.ipa",
+          "size": 235256,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.9",
+          "buildVersion": "11",
+          "date": "2026-10-13T04:44:37Z",
+          "localizedDescription": "Tethercam v0.1.9",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.9/Tethercam-unsigned.ipa",
+          "size": 220534,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.8",
+          "buildVersion": "10",
+          "date": "2026-10-13T04:35:10Z",
+          "localizedDescription": "Tethercam v0.1.8",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.8/Tethercam-unsigned.ipa",
+          "size": 220249,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.7",
+          "buildVersion": "9",
+          "date": "2026-10-13T04:10:52Z",
+          "localizedDescription": "Tethercam v0.1.7",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.7/Tethercam-unsigned.ipa",
+          "size": 219953,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.6",
+          "buildVersion": "8",
+          "date": "2026-10-13T04:02:35Z",
+          "localizedDescription": "Tethercam v0.1.6",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.6/Tethercam-unsigned.ipa",
+          "size": 219950,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.5",
+          "buildVersion": "7",
+          "date": "2026-10-13T03:56:55Z",
+          "localizedDescription": "Tethercam v0.1.5",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.5/Tethercam-unsigned.ipa",
+          "size": 219954,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.4",
+          "buildVersion": "6",
+          "date": "2026-10-13T03:31:19Z",
+          "localizedDescription": "Tethercam v0.1.4",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.4/Tethercam-unsigned.ipa",
+          "size": 219953,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.3",
+          "buildVersion": "5",
+          "date": "2026-10-13T03:10:56Z",
+          "localizedDescription": "Tethercam v0.1.3",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.3/Tethercam-unsigned.ipa",
+          "size": 183138,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.2",
+          "buildVersion": "4",
+          "date": "2026-10-13T03:01:53Z",
+          "localizedDescription": "Tethercam v0.1.2",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.2/Tethercam-unsigned.ipa",
+          "size": 179592,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.1",
+          "buildVersion": "3",
+          "date": "2026-10-13T02:56:36Z",
+          "localizedDescription": "Tethercam v0.1.1",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.1/Tethercam-unsigned.ipa",
+          "size": 179593,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.0",
+          "buildVersion": "1",
+          "date": "2026-10-13T02:35:10Z",
+          "localizedDescription": "Tethercam v0.1.0",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.0/Tethercam-unsigned.ipa",
+          "size": 135129,
+          "minOSVersion": "16.0"
+        },
+        {
+          "version": "0.1.0",
+          "buildVersion": "1",
+          "date": "2026-10-13T02:19:14Z",
+          "localizedDescription": "Tethercam v0.1.0-alpha.1",
+          "downloadURL": "https://github.com/kshitizwagle/tethercam/releases/download/v0.1.0-alpha.1/Tethercam-unsigned.ipa",
+          "size": 135129,
+          "minOSVersion": "16.0"
+        }
+      ]
+    },
+    {
+      "name": "Ninja Links",
+      "bundleIdentifier": "org.ninjalinks.app",
+      "developerName": "kshitizwagle",
+      "subtitle": "Scan and keep your Social Stream and VDO.Ninja links",
+      "localizedDescription": "Scan a QR code from Social Stream Ninja or VDO.Ninja and the link is saved, named after what it is (dock, overlay, camera, viewer, director). Open links in-app or in Safari, copy, share, show them again as a QR code, add notes, search and reorder. Links stay on the phone.",
+      "iconURL": "https://raw.githubusercontent.com/kshitizwagle/altstore/main/icons/ninja-links.png",
+      "tintColor": "#F46B2E",
+      "category": "utilities",
+      "screenshots": [],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {
+          "NSCameraUsageDescription": "Ninja Links uses the camera to scan QR codes, and VDO.Ninja links you open can use it to send video.",
+          "NSMicrophoneUsageDescription": "VDO.Ninja links you open can send audio from the microphone."
+        }
+      },
+      "versions": []
+    }
+  ],
+  "news": []
+}
