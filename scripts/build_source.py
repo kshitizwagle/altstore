@@ -9,6 +9,7 @@ import io
 import json
 import os
 import plistlib
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -51,6 +52,15 @@ def ipa_info(data):
         return plistlib.loads(z.read(name))
 
 
+def label(version, tag):
+    """0.1.0 for tag v0.1.0-alpha.1 becomes 0.1.0a1 (b for beta); other pre-release tags keep their suffix."""
+    m = re.fullmatch(r"v?" + re.escape(version) + r"-(alpha|beta|rc)\.?(\d*)", tag)
+    if not m:
+        return version
+    kind = {"alpha": "a", "beta": "b", "rc": "rc"}[m.group(1)]
+    return f"{version}{kind}{m.group(2)}"
+
+
 def versions(entry, known):
     app = entry["app"]
     result = []
@@ -62,7 +72,9 @@ def versions(entry, known):
             continue
         url = asset["browser_download_url"]
         if url in known:
-            result.append(known[url])
+            v = dict(known[url])
+            v["version"] = label(v["version"], rel["tag_name"])
+            result.append(v)
             continue
         print(f"  reading {url}", file=sys.stderr)
         info = ipa_info(get(url, accept="application/octet-stream"))
@@ -70,7 +82,7 @@ def versions(entry, known):
             print(f"  skipped: bundle id {info.get('CFBundleIdentifier')} isn't {app['bundleIdentifier']}", file=sys.stderr)
             continue
         result.append({
-            "version": info["CFBundleShortVersionString"],
+            "version": label(info["CFBundleShortVersionString"], rel["tag_name"]),
             "buildVersion": str(info["CFBundleVersion"]),
             "date": rel["published_at"] or rel["created_at"],
             "localizedDescription": rel.get("name") or rel["tag_name"],
@@ -79,7 +91,15 @@ def versions(entry, known):
             "minOSVersion": info.get("MinimumOSVersion", "16.0"),
         })
     result.sort(key=lambda v: v["date"], reverse=True)
-    return result
+    # Releases that still share a version and build (e.g. a re-tag): keep the newest.
+    seen = set()
+    unique = []
+    for v in result:
+        key = (v["version"], v["buildVersion"])
+        if key not in seen:
+            seen.add(key)
+            unique.append(v)
+    return unique
 
 
 def main():
