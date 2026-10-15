@@ -53,7 +53,7 @@ Then install packages with your package manager as usual.
 
 ## iPhone apps (AltStore)
 
-In AltStore, go to Browse › Sources › + and add `https://poko.kshitizwagle.com.np/apple/source.json`.
+In AltStore, go to Browse › Sources › + and add `https://poko.kshitizwagle.com.np/apple`.
 
 | App | Repo |
 |-----|------|

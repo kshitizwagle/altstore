@@ -77,9 +77,8 @@ if ls "$SITE/alpine/x86_64/"*.apk >/dev/null 2>&1; then
 fi
 # AltStore (iOS) source: served from the same host
 # This repo builds source.json itself (update.yml), so it is copied from the checkout.
-mkdir -p "$SITE/apple"
-cp "$ROOT/altstore/source.json" "$SITE/apple/source.json"
-cp -r "$ROOT/altstore/icons" "$SITE/apple/icons"
+# Served at /apple as JSON. The icons are linked by absolute GitHub raw URLs, so they aren't copied here.
+cp "$ROOT/altstore/source.json" "$SITE/apple"
 
 # Landing page listing every source on this host
 cat > "$SITE/index.html" <<'EOT'
@@ -96,6 +95,6 @@ cat > "$SITE/index.html" <<'EOT'
   <li>APK (Alpine): <code>https://poko.kshitizwagle.com.np/alpine/x86_64</code></li>
 </ul>
 <h2>iPhone apps (AltStore)</h2>
-<p>In AltStore, go to Browse &rsaquo; Sources &rsaquo; + and add <code>https://poko.kshitizwagle.com.np/apple/source.json</code>.</p>
+<p>In AltStore, go to Browse &rsaquo; Sources &rsaquo; + and add <code>https://poko.kshitizwagle.com.np/apple</code>.</p>
 EOT
 echo "site/ ready"
