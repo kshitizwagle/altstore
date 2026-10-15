@@ -1,4 +1,4 @@
-# kshitizwagle repositories
+# poko
 
 One host, `https://repo.kshitizwagle.com.np`, serves every package and app source I publish.
 
@@ -24,6 +24,6 @@ Add `https://repo.kshitizwagle.com.np/altstore/source.json` in AltStore under Br
 | Tethercam: iPhone as a Windows webcam over USB | [kshitizwagle/tethercam](https://github.com/kshitizwagle/tethercam) |
 | Ninja Links: scan and keep Social Stream and VDO.Ninja links | [kshitizwagle/ninja-links](https://github.com/kshitizwagle/ninja-links) |
 
-Each app repo publishes an unsigned IPA as a GitHub release. `apps.json` lists the apps, and
-`scripts/build_source.py` (run hourly by `update.yml`) writes `source.json` from those releases. To add an app,
-add an entry to `apps.json` and its icon to `icons/`.
+Each app repo publishes an unsigned IPA as a GitHub release. `altstore/apps.json` lists the apps, and
+`altstore/scripts/build_source.py` (run hourly by `update.yml`) writes `source.json` from those releases. To add an app,
+add an entry to `altstore/apps.json` and its icon to `altstore/icons/`.

@@ -70,8 +70,8 @@ fi
 # AltStore (iOS) source: served from the same host
 # This repo builds source.json itself (update.yml), so it is copied from the checkout.
 mkdir -p "$SITE/altstore"
-cp "$ROOT/source.json" "$SITE/altstore/source.json"
-cp -r "$ROOT/icons" "$SITE/altstore/icons"
+cp "$ROOT/altstore/source.json" "$SITE/altstore/source.json"
+cp -r "$ROOT/altstore/icons" "$SITE/altstore/icons"
 
 # Landing page listing every source on this host
 cat > "$SITE/index.html" <<'EOT'
