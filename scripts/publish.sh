@@ -4,7 +4,7 @@
 #   GPG_KEY_ID      signing key for apt (reprepro), rpm metadata, and pacman db
 #   ALPINE_KEY      path to the private RSA key used by abuild-sign
 #   APK_PUBLIC_KEY  path to the matching public key, copied into site/keys/
-# Requires: reprepro, createrepo_c, rpm (rpmsign), pacman-package-manager repo-add, apk-tools, abuild.
+# Requires: reprepro, createrepo_c, rpm (rpmsign), pacman-package-manager (repo-add), docker (for the Alpine steps).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIST="$ROOT/dist"
@@ -65,13 +65,18 @@ for apk in "$DIST"/*.apk; do
   cp "$apk" "$SITE/alpine/x86_64/"
 done
 if ls "$SITE/alpine/x86_64/"*.apk >/dev/null 2>&1; then
-  (cd "$SITE/alpine/x86_64" && apk index -o APKINDEX.tar.gz ./*.apk && abuild-sign -k "$ALPINE_KEY" APKINDEX.tar.gz)
+  # apk-tools and abuild aren't in Ubuntu's repos, so run them in an Alpine container.
+  # The key directory is mounted so the signature keeps the key's name (pkgrepo.rsa).
+  docker run --rm \
+    -v "$SITE/alpine/x86_64:/work" \
+    -v "$(cd "$(dirname "$ALPINE_KEY")" && pwd):/keys:ro" \
+    -w /work alpine:3.20 sh -c "apk add --no-cache abuild apk-tools >/dev/null && apk index -o APKINDEX.tar.gz ./*.apk && abuild-sign -k /keys/$(basename "$ALPINE_KEY") APKINDEX.tar.gz"
 fi
 # AltStore (iOS) source: served from the same host
 # This repo builds source.json itself (update.yml), so it is copied from the checkout.
-mkdir -p "$SITE/altstore"
-cp "$ROOT/altstore/source.json" "$SITE/altstore/source.json"
-cp -r "$ROOT/altstore/icons" "$SITE/altstore/icons"
+mkdir -p "$SITE/apple"
+cp "$ROOT/altstore/source.json" "$SITE/apple/source.json"
+cp -r "$ROOT/altstore/icons" "$SITE/apple/icons"
 
 # Landing page listing every source on this host
 cat > "$SITE/index.html" <<'EOT'
@@ -82,12 +87,12 @@ cat > "$SITE/index.html" <<'EOT'
 <h2>Linux packages</h2>
 <p>Add the repo for your distro. Public signing keys are in <a href="keys/">keys/</a>.</p>
 <ul>
-  <li>APT (Ubuntu, Debian): <code>https://repo.kshitizwagle.com.np/apt</code></li>
-  <li>DNF / Zypper (Fedora, RHEL, openSUSE): <code>https://repo.kshitizwagle.com.np/rpm/$basearch/</code></li>
-  <li>Pacman (Arch): <code>https://repo.kshitizwagle.com.np/arch/$arch</code></li>
-  <li>APK (Alpine): <code>https://repo.kshitizwagle.com.np/alpine/x86_64</code></li>
+  <li>APT (Ubuntu, Debian): <code>https://poko.kshitizwagle.com.np/apt</code></li>
+  <li>DNF / Zypper (Fedora, RHEL, openSUSE): <code>https://poko.kshitizwagle.com.np/rpm/$basearch/</code></li>
+  <li>Pacman (Arch): <code>https://poko.kshitizwagle.com.np/arch/$arch</code></li>
+  <li>APK (Alpine): <code>https://poko.kshitizwagle.com.np/alpine/x86_64</code></li>
 </ul>
 <h2>iPhone apps (AltStore)</h2>
-<p>In AltStore, go to Browse &rsaquo; Sources &rsaquo; + and add <code>https://repo.kshitizwagle.com.np/altstore/source.json</code>.</p>
+<p>In AltStore, go to Browse &rsaquo; Sources &rsaquo; + and add <code>https://poko.kshitizwagle.com.np/apple/source.json</code>.</p>
 EOT
 echo "site/ ready"
