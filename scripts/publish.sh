@@ -15,6 +15,7 @@ SITE="$ROOT/site"
 rm -rf "$SITE"
 mkdir -p "$SITE"
 touch "$SITE/.nojekyll"
+echo "poko.kshitizwagle.com.np" > "$SITE/CNAME"
 mkdir -p "$SITE/keys" "$SITE/apt/conf" "$SITE/rpm/x86_64" "$SITE/arch/x86_64" "$SITE/alpine/x86_64"
 
 gpg --armor --export "$GPG_KEY_ID" > "$SITE/keys/repo.asc"
