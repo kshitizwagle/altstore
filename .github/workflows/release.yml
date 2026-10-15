@@ -31,10 +31,19 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           ALPINE_KEY: ${{ runner.temp }}/pkgrepo.rsa
           APK_PUBLIC_KEY: keys/pkgrepo.rsa.pub
         run: |
           printf '%s' "$GPG_PRIVATE_KEY" | gpg --batch --import
+          # The key is passphrase-protected. Let gpg-agent take the passphrase from us
+          # (no terminal in CI) so reprepro and gpg can sign without prompting.
+          mkdir -p ~/.gnupg && chmod 700 ~/.gnupg
+          printf 'allow-loopback-pinentry\nallow-preset-passphrase\n' >> ~/.gnupg/gpg-agent.conf
+          printf 'pinentry-mode loopback\n' >> ~/.gnupg/gpg.conf
+          gpgconf --kill gpg-agent || true
+          KEYGRIP=$(gpg --with-keygrip --with-colons -K "$GPG_KEY_ID" | awk -F: '/^grp/{print $10; exit}')
+          /usr/lib/gnupg/gpg-preset-passphrase --preset -P "$GPG_PASSPHRASE" "$KEYGRIP"
           scripts/publish.sh
       - uses: actions/upload-pages-artifact@v3
         with:
