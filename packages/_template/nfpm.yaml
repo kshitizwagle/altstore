@@ -1,0 +1,25 @@
+# Template for one package. Copy this folder to packages/<name>/ and edit.
+# Build outputs (.deb .rpm .apk .pkg.tar.zst) for every format from this one file.
+name: myapp
+arch: amd64
+platform: linux
+version: 1.0.0
+release: 1
+maintainer: "kshitizwagle <109206856+kshitizwagle@users.noreply.github.com>"
+description: "My Linux application"
+homepage: "https://github.com/yourname/myapp"
+license: MIT
+section: utils
+priority: optional
+
+contents:
+  - src: ./dist/myapp
+    dst: /usr/bin/myapp
+    file_info:
+      mode: 0755
+
+# Used only for the apk output. The matching public key is published in keys/.
+apk:
+  signature:
+    key_file: ${APK_SIGNING_KEY_FILE}
+    key_name: pkgrepo

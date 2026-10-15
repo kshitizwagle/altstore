@@ -1,0 +1,34 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    container: ubuntu:24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install packaging tools
+        run: |
+          apt-get update
+          apt-get install -y reprepro createrepo-c rpm gpg apk-tools abuild pacman-package-manager curl
+          curl -fsSL https://github.com/goreleaser/nfpm/releases/download/v2.41.3/nfpm_2.41.3_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin nfpm
+      - name: Build packages
+        env:
+          APK_SIGNING_KEY_FILE: ${{ runner.temp }}/alpine.rsa
+        run: |
+          printf '%s' "${{ secrets.ALPINE_PRIVATE_KEY }}" > "$APK_SIGNING_KEY_FILE"
+          scripts/build-packages.sh
+      - name: Import GPG key and publish indexes
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+          ALPINE_KEY: ${{ runner.temp }}/alpine.rsa
+          APK_PUBLIC_KEY: keys/pkgrepo.rsa.pub
+        run: |
+          printf '%s' "$GPG_PRIVATE_KEY" | gpg --batch --import
+          scripts/publish.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: site/

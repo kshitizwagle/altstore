@@ -1,0 +1,10 @@
+Package: pkgrepo-config
+Version: 1.0.0
+Architecture: all
+Maintainer: kshitizwagle <109206856+kshitizwagle@users.noreply.github.com>
+Section: admin
+Priority: optional
+Depends: apt
+Description: Configures apt to use the pkgrepo package repository
+ Adds the repository source and its signing key so apt can install and
+ upgrade packages published by this repository.
