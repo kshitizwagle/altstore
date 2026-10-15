@@ -13,6 +13,8 @@ SITE="$ROOT/site"
 : "${ALPINE_KEY:?set ALPINE_KEY}"
 : "${APK_PUBLIC_KEY:?set APK_PUBLIC_KEY}"
 rm -rf "$SITE"
+touch "$SITE/.nojekyll"
+echo "poko.kshitizwagle.com.np" > "$SITE/CNAME"
 mkdir -p "$SITE/keys" "$SITE/apt/conf" "$SITE/rpm/x86_64" "$SITE/arch/x86_64" "$SITE/alpine/x86_64"
 
 gpg --armor --export "$GPG_KEY_ID" > "$SITE/keys/repo.asc"

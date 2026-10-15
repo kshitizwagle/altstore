@@ -1,7 +1,0 @@
-{
-  // Serves the static site/ tree built by scripts/publish.sh. No Worker code.
-  "name": "poko",
-  "compatibility_date": "2026-01-01",
-  "assets": { "directory": "./site" },
-  "routes": [{ "pattern": "poko.kshitizwagle.com.np", "custom_domain": true }]
-}

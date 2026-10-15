@@ -2,8 +2,15 @@ name: release
 on:
   push:
     tags: ["v*"]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,6 +24,7 @@ jobs:
           APK_SIGNING_KEY_FILE: ${{ runner.temp }}/pkgrepo.rsa
         run: |
           printf '%s' "${{ secrets.ALPINE_PRIVATE_KEY }}" > "$APK_SIGNING_KEY_FILE"
+          scripts/build-config-deb.sh
           scripts/build-packages.sh
       - name: Import GPG key and publish indexes
         env:
@@ -27,13 +35,15 @@ jobs:
         run: |
           printf '%s' "$GPG_PRIVATE_KEY" | gpg --batch --import
           scripts/publish.sh
-      - name: Deploy to Cloudflare
-        uses: cloudflare/wrangler-action@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
-      - uses: actions/upload-artifact@v4
-        with:
-          name: site
           path: site/
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://poko.kshitizwagle.com.np
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
